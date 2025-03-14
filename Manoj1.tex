@@ -1,0 +1,232 @@
+\documentclass[oneside,11pt,reqno]{amsart}
+
+\usepackage{capt-of}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{quiver}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{nicefrac}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+\usepackage[mathscr]{euscript}
+\usepackage{mlmodern}
+\usepackage[T1]{fontenc}
+\usepackage[]{mdframed}
+
+\newtheorem{thm}{Theorem}
+\crefname{thm}{Theorem}{Theorems}
+\newtheorem{prop}[thm]{Proposition}
+\crefname{prop}{Proposition}{Propositions}
+\newtheorem{cor}[thm]{Corollary}
+
+\newtheorem{lem}[thm]{Lemma}
+\crefname{cor}{Corollary}{Corollaries}
+\theoremstyle{definition}
+\newtheorem{const}[thm]{Construction}
+\newtheorem{ex}[thm]{Example}
+\crefname{ex}{Example}{Examples}
+\newtheorem{exer}[thm]{Exercise}
+\crefname{ex}{Exercise}{Exercises}
+\newtheorem{defn}[thm]{Definition}
+\crefname{defn}{Definition}{Definitions}
+\newtheorem*{refs}{Reference}
+\newtheorem{conj}[thm]{Conjecture}
+\crefname{conj}{Conjecture}{Conjectures}
+
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{ques}{Question}
+\newtheorem{fact}[thm]{Fact}
+\crefname{obs}{Observation}{Observations}
+
+\newtheorem{notn}[thm]{Notation}
+\crefname{notn}{Notation}{Notation}
+\newtheorem{conv}[thm]{Convention}
+\crefname{conv}{Convention}{Conventions}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\crefname{rem}{Remark}{Remarks}
+
+
+
+\begin{document}
+\title{AIS - Cohomology of Commutative Algebras}
+\author{Lecture MK1}
+\date{\today}
+\maketitle
+
+\section*{Lecture 1: {\color{Sepia} Koszul Complexes, Gorenstein Rings and Poincar\'{e} Algebras}}
+\begin{conv} 
+ $R$ is always assumed to be a noetherian commutative ring with unity, unless mentioned otherwise.
+\end{conv}
+Let $M$ be a finitely generated $R$-module and $f\in M^{*}:=\text{Hom}_R(M,R)$. We want to define the Koszul complex $K_{\bullet}(M,f)$ in a coordinate free way. Recall the wedge product
+\begin{equation*}
+	\bigwedge M = \frac{\bigoplus_{n \geqslant 0} M^{\otimes n}}{\text{``A certain graded ideal''} } = \bigoplus_{i\geqslant 0} \bigwedge \nolimits ^{i}M
+\end{equation*}
+$\bigwedge M$ is a skew commutative associative graded algebra. 
+
+
+\begin{defn}
+ We can view $\bigwedge M$ as a complex with the boundary maps given by
+\begin{align*}
+	d: \bigwedge \nolimits^{i}M & \rightarrow \bigwedge\nolimits ^{i-1} M  \\
+	x_{1}\wedge \ldots \wedge x_{i} &\mapsto \sum_{j=1}^{i} (-1)^{j}f(x_{j}) (x_{1}\wedge \ldots \wedge \hat{x}_{j} \wedge \ldots \wedge x_{i})
+\end{align*}
+It is easily checked that $d^{2}=0$ (this is the same computation as in the case of composition of boundary maps of the singular chain complex in topology). We call this complex the \emph{Koszul complex} (with respect to $M$ and $f\in M^{\ast}$) and denote it by $K_{\bullet}(M,f)$.
+\end{defn}
+\begin{obs}
+ For homogeneous $x,y\in K_{\bullet}(M,f)$, $d(x\wedge y)=dx\wedge y + (-1)^{\text{deg}(x)} x \wedge dy$. If $x\in K_{1}(M,f)\cong M$, then $dx=-f(x)$.
+\end{obs}
+\begin{ex}
+ The form in which one has probably seen the Koszul complex is something like
+ \begin{equation*}
+	 0 \rightarrow R \xrightarrow{\binom{-b}{a}} R\oplus R \xrightarrow{(a\;\;\;b)} R
+ \end{equation*}
+ This is in fact a special case of the above definition. Put $M=R \oplus R$, with $(e_{1}:=(1,0),e_{2}:=(0,1))$ as a basis and let $f:M \rightarrow R$ be given by $e_{1}\mapsto a$ and $e_{2} \mapsto b$. A similar construction can be carried out for $R^{\oplus n}$ and this reduces to the (probably) more familiar version. For $x_{1},\ldots ,x_{n}\in R$, we will write $K_{\bullet}(x_{1},\ldots ,x_{m},R)$ for the Koszul complex $K_{\bullet}(R^{\oplus n},f)$, where $f: R^{\oplus n}\rightarrow R$, $e_{i}\mapsto x_{i}$.  
+\end{ex} 
+\begin{conv}\label{nloc}
+ From now on, we will assume that $(R,\mathfrak{m},k)$ is noetherian local, with maximal ideal $\mathfrak{m} $, residue field $k$ and with minimal generating set $\{ x_{1},\ldots ,x_{n} \} $ for $\mathfrak{m} $. We will write either of $K_{\bullet}^{R}$, $K_{\bullet}$ or $K_{\bullet }(x_{1},\ldots ,x_{n})$ to mean the same as $K_{\bullet}(x_{1},\ldots ,x_{n},R)$ 
+\end{conv}
+
+{\color{Sepia}\begin{rem}
+ Recall that by NAK, any generating set of $\mathfrak{m}/\mathfrak{m}^{2}$ as a $k$-vector space can be lifted to a generating set of $\mathfrak{m} $. So, any two minimal generating sets of the maximal ideal of a noetherian local ring have the same finite number of elements.
+\end{rem}}
+
+\begin{rem}
+ If $\{ y_{1},\ldots ,y_{n} \} $ is another minimal generating set for $\mathfrak{m} $, then using NAK, it can be shown that there exists an isomorphism $\phi :R^{n} \rightarrow R^{n}$ that makes the following diagram commute.
+
+ % https://q.uiver.app/#q=WzAsNCxbMCwwLCJSXm4iXSxbMiwwLCJSIl0sWzAsMiwiUl5uIl0sWzIsMiwiUiJdLFswLDEsImVfaSBcXG1hcHN0byB4X2kiXSxbMCwyLCJcXHBoaSIsMl0sWzIsMywiZV9pIFxcbWFwc3RvIHlfaSIsMl0sWzEsMywiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\[\begin{tikzcd}[cramped]
+	{R^n} && R \\
+	\\
+	{R^n} && R
+	\arrow["{e_i \mapsto x_i}", from=1-1, to=1-3]
+	\arrow["\phi"', from=1-1, to=3-1]
+	\arrow[equals, from=1-3, to=3-3]
+	\arrow["{e_i \mapsto y_i}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+By functoriality, $K_{\bullet}(x_{1},\ldots ,x_{n},R)\cong K_{\bullet}(y_{1},\ldots ,y_{n},R)$. This justifies the notation adopted in \cref{nloc}.
+\end{rem}
+
+\begin{defn}
+	Define $Z_{i}:=\text{ker}(K_{i}\rightarrow K_{i-1})$ (called the $i$-cycles of $K_{\bullet}$), $B_{i}:=\text{Im}(K_{i+1}\rightarrow K_{i})$ (called the $i$-boundaries of $K_{\bullet}$), $Z:=\bigoplus Z_{i}$ and $B:=\bigoplus B_{i}$. Observe that $Z$ is canonically a subalgebra of $K_{\bullet}$ and that $B$ is an ideal of $Z$. Define the \emph{Koszul homology} of $R$ as $H(R):=Z/B$. $H(R)$ is canonically an $R$-algebra.    
+\end{defn}
+
+
+
+
+\begin{ex}[Characterisation of regular local rings]
+ A noetherian local ring $(R,\mathfrak{m},k)$ is regular if and only if $H(R)=k$ (in degree $0$).
+\end{ex}
+
+
+\begin{ex}
+ Let $(S,\mathfrak{n},k)$ be a regular local ring and $R=S/I$. Then, $$H_{\bullet}(R)= \text{Tor}_{\bullet}^{S}(R,k)$$
+ The results holds in general but to simplify the argument, we will assume that $I\subseteq \mathfrak{n}^{2}$. This is to ensure $\text{embdim}(R)=\text{embdim}(S)$ as
+ \begin{equation*}
+ \text{embdim}(R) =\text{dim}_{k}(\mathfrak{m}/\mathfrak{m}^{2}) = \text{dim}_{k}(\mathfrak{n}+I/\mathfrak{n}^{2}+I)=\text{dim}_{k}(\mathfrak{n}/\mathfrak{n}^{2} )= \text{embdim}(S)          
+ \end{equation*}
+ Let $x_{1},\ldots ,x_{n}$ be a minimal generating set of $\mathfrak{n} $. Then, $\overline{x}_{1} ,\ldots ,\overline{x}_{n} $ is a minimal generating set of $\mathfrak{m} $. Let $K_{\bullet}^{R}=K_{\bullet}(\overline{x}_{1},\ldots ,\overline{x}_{n}  )$ and $K_{\bullet}^{S}=K_{\bullet}(x_{1},\ldots ,x_{n})$. Then, $K_{\bullet}^{R}=K_{\bullet}^{S} \otimes _{S} R$. Hence,
+\begin{equation*}
+ H_{i}(R)=H_{i}(K_{\bullet}^{R})=H_{i}(K_{\bullet }^{S} \otimes _{S} R) = \text{Tor}_{i}^{S}(R,k) 
+\end{equation*}
+If $F_{\bullet} \rightarrow R$ is a minimal free resolution of $R$ as an $S$-module, then $\text{dim}_{k}(H_{i}(R))=\text{rk}_{S}(F_{i})$.
+
+
+\end{ex}
+
+
+
+
+
+\begin{rem}[Depth Sensitivity of the Koszul Complex]~\\
+ Let $s:=\text{embdim}(R)-\text{depth}(R)$. Then, $H_{i}(R)=0$ for all $i>s$ and $H_{s}(R)\neq 0$.    
+\end{rem}
+
+\begin{prop}
+ Let $y\in \mathfrak{m} $ be a non-zerodivisor in $R$. Then,
+ \begin{enumerate}[label=\emph{(\arabic*)}]
+ \item For all $i$, there is an exact sequence
+	 \begin{equation*}
+	  0 \rightarrow H_{i}(R) \rightarrow H_{i}(R/(y)) \rightarrow H_{i-1}(R) \rightarrow 0
+	 \end{equation*}
+ \item Let $s=\emph{embdim}(R)-\emph{depth}(R)$. Then, $H_{i+1}(R/(y))\cong H_{i}(R)$ for all $i\geqslant s$.
+ \end{enumerate}
+\end{prop}
+\begin{proof}
+	See \cite[Theorem 16.4]{CRT} for (1). (2) follows from (1).
+\end{proof}
+
+
+\begin{cor}
+ Let $t=\text{depth}(R)$, $y_{1},\ldots ,y_{t}$ be a maximal regular sequence, $J=(y_{1},\ldots ,y_{t})$, $n=\text{embdim}(R)$ and $s=n-t$. Then,  
+ \begin{align*}
+	 H_{s}(R) = H_{n}(R/J) &= \emph{ker}((R/J) \xrightarrow{(\pm x_{1}\;\pm x_{2}\;\ldots \;\pm x_{n})^{T}} (R/J)^{n}) \\
+	 &= 0:_{R/J} \mathfrak{m} \\
+	 &=\emph{Hom}_{R}(k,R/J) 
+ \end{align*}
+\end{cor}
+
+
+\begin{defn}
+	$R$ is said to be \emph{Gorenstein} if it is Cohen-Macaulay and $H_{s}(R)\cong k$, where $s:=\text{embdim}(R)-\text{depth}(R)$. (Recall \cref{nloc})  
+\end{defn}
+
+
+The following are well-known equivalent reformulations, possibly under further assumptions.
+\begin{prop}~
+ \begin{enumerate}[label={\emph{(\arabic*)}}]
+ \item Let $(R,\mathfrak{m},k)$ be an artinian local ring. Then, the following are equivalent
+	 \begin{enumerate}[label={\emph{(\alph*)}}]
+	  \item $R$ is Gorenstein
+	 \item $(0:_{R} \mathfrak{m} ) \cong k$ 
+	 \item $R$ is an injective $R$-module 
+	 \end{enumerate}
+ \item $R$ is Gorenstein if and only if $R/(y)$ is Gorenstein for all non-zerodivisors $y\in \mathfrak{m} $. 
+ \item $R$ is Gorenstein if and only if the injective dimension of $R$ as a module over itself is finite.
+ \end{enumerate}
+ 
+\end{prop}
+
+
+\begin{defn}
+	A finite dimensional associative (and not necessarily commutative) graded $k$-algebra $A=\bigoplus _{i=0}^{g} A_{i}$, with (assuming for safety) $A_{0}=k$, is called a \emph{Poincar\'{e} algebra} if 
+\begin{align*}
+	A_{i} &\rightarrow \text{Hom}_{k}(A_{g-i},A_{g}) \\
+	a &\mapsto [b\mapsto ab]
+\end{align*}
+ is an isomorphism of $A_{0}$-modules for all $i$.   
+\end{defn}
+
+\begin{ex}
+	Let $R=R_{0} \oplus R_{1} \oplus \ldots  \oplus R_{g}$ (with $g>0$ and $R_{g}\neq 0$) be a standard graded artinian $k$-algebra with $R_{0}=k$. So, $R$ is local with maximal ideal $\mathfrak{m}:=\bigoplus_{1\leqslant i \leqslant  g} R_{i}$. Assume that $R$ is Gorenstein. Since $R_{g}\mathfrak{m} =0$, $R_{g}\subseteq \text{soc}(R)$. { Since $R$ is Gorenstein, local and artininan, dimension of $\text{dim}_{k}(\text{soc}(R))=1$} and since $R_{g}\mathfrak{m}=0$, $\text{soc}(R)=R_{g}$. Let $a\in R_{i}$ be non-zero. Then, since $R$ is artinian ({\color{Sepia} in which case the socle is an essential submodule}), $(a)\cap \text{soc}(R)\neq (0)$. Since $R$ is Gorenstein, $\text{soc}(R)\subseteq (a)$. Hence, there exists $b\in R_{g-i}$ such that $ab$ generates $\text{soc}(R) $. This means that the map $R_{i}\rightarrow \text{Hom}_{k}(R_{g-i},R_{g})$ induced by multiplication is injective for all $i$. If it is further assumed that $R$ is a finite dimensional over $k$, then by a dimension argument, we conclude that $R_{i}\rightarrow \text{Hom}_{k}(R_{g-i},R_{g})$ is an isomorphism for all $i$ and that $R$ is a Poincar\'{e} algebra.  
+\end{ex}
+
+\begin{ex}
+	Let $V$ be a finite dimensional $k$-vector space with an ordered basis $( v_{1},\ldots ,v_{n} )$. We will show that $\bigwedge V$ is a Poincar\'{e} algebra. Clearly, the multiplication map $k \cong \bigwedge ^{0} V \rightarrow \text{Hom}_{k}(\bigwedge ^{n} V , \bigwedge ^{n } V) \cong \text{Hom}_{k}(k,k)$ is an isomorphism. Fix $i \geqslant 1$ and let $\mu :=\sum_{\substack{1\leqslant j_{1}<j_{2}<\ldots <j_{i}\leqslant n}}^{} \alpha _{j_{1},\ldots ,j_{n}} (v_{j_{1}} \wedge \ldots \wedge v_{j_{i}})\in \bigwedge^{i}V$ be non-zero with $\alpha _{k_{1},\ldots ,k_{n}}\neq 0$ for some $1\leqslant k_{1}<\ldots <k_{n}\leqslant n$. Then, $\mu \wedge (v_{1}\wedge \ldots \wedge \hat v_{j_{1}}\ldots \wedge \hat v_{j_{n}}\wedge \ldots  \wedge v_{n}) \neq 0$. Thus, the map $\bigwedge ^{i} V \rightarrow \text{Hom}_{k}(\bigwedge ^{n-i} V, \bigwedge^{n} V)$ is injective. Comparing dimensions as $k$-vector spaces, it is further an isomorphism.
+\end{ex}
+
+
+
+
+
+
+
+\begin{thebibliography}{Neil1234}
+	
+\bibitem[Mat89]{CRT} Matsumura, Hideyuki. \emph{Commutative ring theory}. No. 8. Cambridge university press, 1989.
+\end{thebibliography}
+
+
+
+
+
+
+\end{document}
+
